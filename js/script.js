@@ -22,7 +22,7 @@ const root = new Vue({
             } else {
                 this.currentIndex++;
             }
-
+            this.autoPlay();
         },
         decreaseIndex() {    //decrementiamo le immagini
             if (this.currentIndex === 0) { //soluzione per far scorrere le immagini in modo continuo
@@ -30,12 +30,27 @@ const root = new Vue({
             } else {
                 this.currentIndex--;
             }
-
+            this.autoPlay();
         },
 
         setCurrentIndex(newIndex) { //usiamo questa funzione che rendera' i pallini dinamici al click
 
             this.currentIndex = newIndex;
+
+            this.autoPlay();
+        },
+
+        //crea un automatismo nel cambiare l immagine
+        autoPlay() {
+
+            clearTimeout(this.timeoutId);
+            this.timeoutId = setTimeout(this.increaseIndex, 3000);
+
+        },
+
+        //nuovo metodo
+        created() {     //viene eseguito non appena l istanza di VUE e' stata creata
+            this.autoPlay();
         },
     },
 });
